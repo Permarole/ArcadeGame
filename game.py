@@ -49,13 +49,6 @@ class Game:
 
     def update(self, screen):
 
-        # Apply player's sprite
-        screen.blit(self.player.image, self.player.rect)
-        # print(self.player.rect)
-
-        # Refresh remaining  lives
-        self.player.update_player_lives(screen)
-
         # Check pressed key
         keys = pygame.key.get_pressed()
         # Need to bond te image so that it can't go out the screen's borders
@@ -74,19 +67,9 @@ class Game:
                 self.tick = tick
                 self.player.shoot()
 
-        # UPDATE SPRITE POSITION :
-        # Get current enemies
-        for enemy in self.all_enemies:
-            enemy.forward()
-            enemy.shoot()
-            for projectile in enemy.all_projectiles:
-                projectile.move(False)
-        # Get current player's projectiles
-        for own_projectile in self.player.all_projectiles:
-            own_projectile.move()
-        # Get current bonus
-        for bonus in self.all_bonus:
-            bonus.forward()
+        # APPLY SPRITES
+        # Apply player's sprite
+        screen.blit(self.player.image, self.player.rect)
 
         # Apply every player's projectiles
         self.player.all_projectiles.draw(screen)
@@ -100,6 +83,28 @@ class Game:
 
         # Apply every bonus
         self.all_bonus.draw(screen)
+
+        # UPDATE SPRITE POSITION :
+        # Get current enemies
+        for enemy in self.all_enemies:
+            enemy.forward()
+            enemy.shoot()
+            enemy.update_health_bar(screen)
+            # # Get current enemies projectiles
+            for projectile in enemy.all_projectiles:
+                projectile.move(False)
+        # Get current player's projectiles
+        for own_projectile in self.player.all_projectiles:
+            own_projectile.move()
+        # Get current bonus
+        for bonus in self.all_bonus:
+            bonus.forward()
+
+        # Refresh remaining  lives
+        self.player.update_player_lives(screen)
+
+        # Update health bar
+        self.player.update_health_bar(screen)
 
     def check_collision(self, sprite, group):
         # Return boolean

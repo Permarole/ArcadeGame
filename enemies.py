@@ -42,6 +42,11 @@ class Enemies(pygame.sprite.Sprite):
             if random.randrange(1, 10) < DROP_RATE:
                 self.spawn_bonus()
 
+    def update_health_bar(self, surface):
+        # Draw health bar
+        pygame.draw.rect(surface, (60, 63, 60), [self.rect.x+5, self.rect.y-10, self.max_health*25, 3])
+        pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 5, self.rect.y - 10, self.health*25, 3])
+
     def remove(self):
         # Delete enemy
         self.game.all_enemies.remove(self)
