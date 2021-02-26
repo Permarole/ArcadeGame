@@ -51,9 +51,9 @@ class Game:
 
         # Apply player's sprite
         screen.blit(self.player.image, self.player.rect)
-        print(self.player.rect)
+        # print(self.player.rect)
 
-        # Refresh remaining lives
+        # Refresh remaining  lives
         self.player.update_player_lives(screen)
 
         # Check pressed key
@@ -78,15 +78,22 @@ class Game:
         # Get current enemies
         for enemy in self.all_enemies:
             enemy.forward()
-        # Get current projectiles
-        for projectile in self.player.all_projectiles:
-            projectile.move()
+            enemy.shoot()
+            for projectile in enemy.all_projectiles:
+                projectile.move(False)
+        # Get current player's projectiles
+        for own_projectile in self.player.all_projectiles:
+            own_projectile.move()
         # Get current bonus
         for bonus in self.all_bonus:
             bonus.forward()
 
-        # Apply every projectile
+        # Apply every player's projectiles
         self.player.all_projectiles.draw(screen)
+
+        # Apply every enemies projectiles
+        for enemy in self.all_enemies:
+            enemy.all_projectiles.draw(screen)
 
         # Apply every enemies
         self.all_enemies.draw(screen)

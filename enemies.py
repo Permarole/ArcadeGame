@@ -1,4 +1,6 @@
 import pygame
+import random
+from projectile import Projectile
 from bonus import Bonus, bonus_sprite
 import random
 
@@ -14,6 +16,9 @@ class Enemies(pygame.sprite.Sprite):
         self.attack = 1
         self.health = 2
         self.max_health = 2
+        self.tick = pygame.time.get_ticks()
+        # Keep track of projectile's sprite
+        self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.image.load('assets/minion.png')
         self.image = pygame.transform.scale(self.image, (60, 60))
         self.image = pygame.transform.rotozoom(self.image, 180, 1)
@@ -60,3 +65,14 @@ class Enemies(pygame.sprite.Sprite):
             self.remove()
             # Inflict dmf to player
             self.game.player.damage(1)
+
+    def shoot(self):
+
+        tick = pygame.time.get_ticks()
+
+        if self.rect.y >= 0 and tick > self.tick + random.randrange(800, 4000, 800):
+            # Create projectiles instance
+            self.all_projectiles.add(Projectile(self, self.game.player, 'laser_beam_2'))
+            self.tick = tick
+        else:
+            pass
