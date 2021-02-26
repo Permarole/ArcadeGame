@@ -25,8 +25,8 @@ class Player(pygame.sprite.Sprite):
         # Scale sprite
         # self.image = pygame.transform.scale(self.image, (200,200))
         self.rect = self.image.get_rect()
-        self.rect.x = MIDDLE_POS
-        self.rect.y = LOWER_POS
+        self.rect.x = (game.screen_width - 72) / 2
+        self.rect.y = game.screen_height
 
     def move_right(self):
         self.rect.x += self.velocity*1.5
@@ -65,7 +65,7 @@ class Player(pygame.sprite.Sprite):
         lives_images = self.image
         lives_images = pygame.transform.scale(lives_images, (20, 20))
         for i in range(self.lives):
-            screen.blit(lives_images, (20+i*25, LOWER_POS-30))
+            screen.blit(lives_images, (20+i*25, self.game.screen_height-30))
 
     def life_up(self):
 

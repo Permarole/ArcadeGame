@@ -1,6 +1,11 @@
 import pygame
 import math
 from game import Game
+import ctypes # Screen resolution
+
+
+user32 = ctypes.windll.user32
+screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 
 
 pygame.init()
@@ -9,8 +14,10 @@ pygame.init()
 clock = pygame.time.Clock()
 FPS = 60
 
-WIDTH = 720
-HEIGHT = 1000
+# Get screen resolution
+WIDTH = math.ceil(min(1000, screensize[1] - 100) * 0.7)
+HEIGHT = min(1000, screensize[1] - 100)
+
 # Generate game's window
 pygame.display.set_caption("War Thunder")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))

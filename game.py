@@ -40,7 +40,7 @@ class Game:
             # A waiting phase occurs every 3 minions
             if i % 3 == 0:
                 spacing -= 800
-            self.enemies_map.append((random.randrange(10, 650, 50), spacing - 100*(i%3)))
+            self.enemies_map.append((random.randrange(10, self.screen_width - 82, 50), spacing - 100*(i%3)))
 
 
     def game_over(self):
@@ -48,11 +48,12 @@ class Game:
         self.player.health = self.player.max_health
         self.player.lives = self.player.default_lives
         self.is_playing = False
-        # TODO : Implement self.is_playing = False
+
 
     def update(self, screen):
         # Apply player's sprite
         screen.blit(self.player.image, self.player.rect)
+        print(self.player.rect)
 
         # Refresh remaining lives
         self.player.update_player_lives(screen)
@@ -67,7 +68,7 @@ class Game:
             self.player.move_left()
         if keys[pygame.K_UP] and self.player.rect.y > 0:
             self.player.move_up()
-        if keys[pygame.K_DOWN] and self.player.rect.y + self.player.rect.height < LOWER_POS:
+        if keys[pygame.K_DOWN] and self.player.rect.y + self.player.rect.height < self.screen_height:
             self.player.move_down()
         # TODO : Implement auto shoot
         if keys[pygame.K_SPACE] :
