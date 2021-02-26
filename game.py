@@ -3,8 +3,6 @@ from enemies import Enemies
 from player import Player
 import random
 
-LOWER_POS = 1000
-
 
 class Game:
 
@@ -40,24 +38,23 @@ class Game:
             # A waiting phase occurs every 3 minions
             if i % 3 == 0:
                 spacing -= 800
-            self.enemies_map.append((random.randrange(10, self.screen_width - 82, 50), spacing - 100*(i%3)))
-
+            self.enemies_map.append((random.randrange(10, self.screen_width - 82, 50), spacing - 100*(i % 3)))
 
     def game_over(self):
+
         self.all_enemies = pygame.sprite.Group()
         self.player.health = self.player.max_health
         self.player.lives = self.player.default_lives
         self.is_playing = False
 
-
     def update(self, screen):
+
         # Apply player's sprite
         screen.blit(self.player.image, self.player.rect)
         print(self.player.rect)
 
         # Refresh remaining lives
         self.player.update_player_lives(screen)
-
 
         # Check pressed key
         keys = pygame.key.get_pressed()
@@ -71,12 +68,11 @@ class Game:
         if keys[pygame.K_DOWN] and self.player.rect.y + self.player.rect.height < self.screen_height:
             self.player.move_down()
         # TODO : Implement auto shoot
-        if keys[pygame.K_SPACE] :
+        if keys[pygame.K_SPACE]:
             tick = pygame.time.get_ticks()
-            if tick >= self.tick + 200 :
+            if tick >= self.tick + 200:
                 self.tick = tick
                 self.player.shoot()
-
 
         # UPDATE SPRITE POSITION :
         # Get current enemies
@@ -97,7 +93,6 @@ class Game:
 
         # Apply every bonus
         self.all_bonus.draw(screen)
-
 
     def check_collision(self, sprite, group):
         # Return boolean

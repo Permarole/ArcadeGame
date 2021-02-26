@@ -30,14 +30,13 @@ class Projectile(pygame.sprite.Sprite,):
             self.rect.y += self.velocity
 
             # Check collision with player
-            for player in self.player.game.check_collision(self, self.player) :
+            for player in self.player.game.check_collision(self, self.player):
                 # Delete projectile
                 self.remove()
                 # Inflict dmg to player
                 player.damage(1)
 
-
-        #Check if the projectile is out of bounds
+        # Check if the projectile is out of bounds
         if self.rect.y < 0:
             # Delete projectile
             self.remove()
@@ -45,5 +44,3 @@ class Projectile(pygame.sprite.Sprite,):
     def remove(self):
         # Delete projectile to free memory
         self.player.all_projectiles.remove(self)
-
-

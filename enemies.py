@@ -4,6 +4,7 @@ import random
 
 DROP_RATE = 2.5
 
+
 class Enemies(pygame.sprite.Sprite):
 
     def __init__(self, game, offset_x=0, offset_y=0):
@@ -17,7 +18,7 @@ class Enemies(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (60, 60))
         self.image = pygame.transform.rotozoom(self.image, 180, 1)
         self.rect = self.image.get_rect()
-        self.rect = self.image.get_rect(center = self.rect.center)
+        self.rect = self.image.get_rect(center=self.rect.center)
         self.rect.x = offset_x
         self.rect.y = offset_y
         # TODO : rotate minion
@@ -33,7 +34,7 @@ class Enemies(pygame.sprite.Sprite):
         if self.health <= 0:
             self.remove()
             # Spawn bonus
-            if random.randrange(1,10) < DROP_RATE:
+            if random.randrange(1, 10) < DROP_RATE:
                 self.spawn_bonus()
 
     def remove(self):
@@ -44,7 +45,6 @@ class Enemies(pygame.sprite.Sprite):
         name = random.choice(bonus_sprite)
         bonus = Bonus(name, self.game, (self.rect.x, self.rect.y))
         self.game.all_bonus.add(bonus)
-
 
     def forward(self):
         # Check collision with player first
@@ -60,4 +60,3 @@ class Enemies(pygame.sprite.Sprite):
             self.remove()
             # Inflict dmf to player
             self.game.player.damage(1)
-

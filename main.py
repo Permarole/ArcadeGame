@@ -1,7 +1,7 @@
 import pygame
 import math
 from game import Game
-import ctypes # Screen resolution
+import ctypes  # Screen resolution
 
 
 user32 = ctypes.windll.user32
@@ -41,14 +41,14 @@ while running:
     # Apply background
     screen.blit(background, (0, 0))
 
-    if game.is_playing :
+    if game.is_playing:
         # Start instructions
         game.update(screen)
-    else :
+    else:
         # Add play button
         screen.blit(play_button, (play_button_rect.x, play_button_rect.y))
 
-    #refresh screen
+    # Refresh screen
     pygame.display.flip()
 
     for event in pygame.event.get():
@@ -67,7 +67,6 @@ while running:
                 else:
                     # Launch game
                     game.start()
-
 
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False

@@ -57,7 +57,7 @@ class Player(pygame.sprite.Sprite):
             if self.lives > 0:
                 self.lives -= 1
                 self.health = self.max_health
-            else :
+            else:
                 self.game.game_over()
 
     def update_player_lives(self, screen):
