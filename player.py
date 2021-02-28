@@ -41,6 +41,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.velocity
 
     def shoot(self):
+        """ Create new instances of projectiles, two if double fire mode is enabled"""
         # Check for double fire
         if self.double_shoot:
             # Create projectiles instance
@@ -51,6 +52,8 @@ class Player(pygame.sprite.Sprite):
             self.all_projectiles.add(Projectile(self, self, 'laser_beam'))
 
     def damage(self, amount):
+        """ Reduce the health by the amount given. Reduce by one the number of lives if health reach zero.
+        End the game if lives and health are both zero"""
         self.health -= amount
 
         if self.health <= 0:
@@ -61,23 +64,23 @@ class Player(pygame.sprite.Sprite):
                 self.game.game_over()
 
     def update_player_lives(self, screen):
-
+        """ Update the number of lives displayed"""
         lives_images = self.image
         lives_images = pygame.transform.scale(lives_images, (20, 20))
         for i in range(self.lives):
             screen.blit(lives_images, (20+i*25, self.game.screen_height-30))
 
     def update_health_bar(self, surface):
-        # Draw health bar
-        pygame.draw.rect(surface, (60, 63, 60), [25, self.game.screen_height - 200, 10, self.max_health*20])
-        pygame.draw.rect(surface, (111, 210, 46), [25, self.game.screen_height - 200, 10, self.health*20])
-
+        """Draw two health bar, one is gray to keep track of the max. The other is green to show the current health"""
+        pygame.draw.rect(surface, (60, 63, 60), [25, self.game.screen_height - 200, 10, self.max_health*25])
+        pygame.draw.rect(surface, (111, 210, 46),
+                         [25, self.game.screen_height - 200 + abs(self.health - 4) * 25, 10, self.health*25])
 
     def life_up(self):
-
+        """ Increase the number of lives if the max isn't reach"""
         if self.lives < self.max_lives:
             self.lives += 1
 
     def double_fire(self):
-
+        """ Set the double fire mode"""
         self.double_shoot = True
