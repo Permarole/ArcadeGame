@@ -61,15 +61,15 @@ class Enemies(pygame.sprite.Sprite):
         if not self.game.check_collision(self, self.game.all_players):
             self.rect.y += self.velocity
             # TODO : Implement more complicated movements for enemies
-        # TODO : Implement enemies destruction while oob
-        elif self.rect.y >= self.game.screen_height:
+        elif self.rect.y+72 >= self.game.screen_height:
             self.remove()
-
         else:
             # Delete enemy
             self.remove()
             # Inflict dmf to player
             self.game.player.damage(1)
+
+
 
     def shoot(self):
 
