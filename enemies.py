@@ -62,8 +62,8 @@ class Enemies(pygame.sprite.Sprite):
             self.rect.y += self.velocity
             # TODO : Implement more complicated movements for enemies
         # TODO : Implement enemies destruction while oob
-        # elif self.rect.y >= 0 :
-        #     pass
+        elif self.rect.y >= self.game.screen_height:
+            self.remove()
 
         else:
             # Delete enemy

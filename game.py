@@ -60,7 +60,6 @@ class Game:
             self.player.move_up()
         if keys[pygame.K_DOWN] and self.player.rect.y + self.player.rect.height < self.screen_height:
             self.player.move_down()
-        # TODO : Implement auto shoot
         if keys[pygame.K_SPACE]:
             tick = pygame.time.get_ticks()
             if tick >= self.tick + 200:
