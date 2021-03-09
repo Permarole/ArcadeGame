@@ -12,6 +12,8 @@ class Game:
         self.screen_height = size[1]
         self.tick = pygame.time.get_ticks()
         self.is_playing = False
+        # Dict that contains every sprite used in the game
+        self.images = {}
         # Create player
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
@@ -25,10 +27,21 @@ class Game:
         # key pressed
         self.pressed = {}
 
+
     def start(self):
         self.is_playing = True
+        self.load_images()
         self.map()
         self.spawn_enemies()
+
+    def load_images(self):
+        """ Loads sprites """
+        self.images = {
+            "enemies" : pygame.image.load('assets/minion.png'),
+            "enemies_projectiles" : pygame.image.load('assets/laser_beam_2.png'),
+            "player_projectiles" : pygame.image.load('assets/laser_beam.png')
+        }
+
 
     def map(self):
         # Create a list that contains every minions positions (x,y)
@@ -111,5 +124,5 @@ class Game:
 
     def spawn_enemies(self):
         for pos in self.enemies_map:
-            enemies = Enemies(self, pos[0], pos[1])
+            enemies = Enemies(self, self.images['enemies'], pos[0], pos[1])
             self.all_enemies.add(enemies)

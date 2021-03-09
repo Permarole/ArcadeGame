@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/WarThunder.iml" filepath="$PROJECT_DIR$/.idea/WarThunder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ArcadeGame.iml" filepath="$PROJECT_DIR$/.idea/ArcadeGame.iml" />
     </modules>
   </component>
 </project>

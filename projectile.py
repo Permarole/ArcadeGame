@@ -3,12 +3,12 @@ import pygame
 
 class Projectile(pygame.sprite.Sprite):
 
-    def __init__(self, shooter, player, sprite_name, offset=0):
+    def __init__(self, shooter, player, sprite, offset=0):
         super().__init__()
         self.velocity = 7
         self.player = player
         self.shooter = shooter
-        self.image = pygame.image.load('assets/'+sprite_name+'.png')
+        self.image = sprite
         self.image = pygame.transform.scale(self.image, (15, 15))
         self.rect = self.image.get_rect()
         self.rect.x = shooter.rect.x-7 + (shooter.image.get_width()/2) + offset
@@ -39,7 +39,7 @@ class Projectile(pygame.sprite.Sprite):
                 player.damage(self.shooter.attack)
 
         # Check if the projectile is out of bounds
-        if self.rect.y < 0:
+        if self.rect.y < 0 or self.rect.y - 60 >= self.shooter.game.screen_height:
             # Delete projectile
             self.remove()
 

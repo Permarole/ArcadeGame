@@ -9,7 +9,7 @@ DROP_RATE = 2.5
 
 class Enemies(pygame.sprite.Sprite):
 
-    def __init__(self, game, offset_x=0, offset_y=0):
+    def __init__(self, game, sprite, offset_x=0, offset_y=0):
         super().__init__()
         self.game = game
         self.velocity = 3
@@ -19,7 +19,7 @@ class Enemies(pygame.sprite.Sprite):
         self.tick = pygame.time.get_ticks()
         # Keep track of projectile's sprite
         self.all_projectiles = pygame.sprite.Group()
-        self.image = pygame.image.load('assets/minion.png')
+        self.image = sprite
         self.image = pygame.transform.scale(self.image, (60, 60))
         self.image = pygame.transform.rotozoom(self.image, 180, 1)
         self.rect = self.image.get_rect()
@@ -61,13 +61,13 @@ class Enemies(pygame.sprite.Sprite):
         if not self.game.check_collision(self, self.game.all_players):
             self.rect.y += self.velocity
             # TODO : Implement more complicated movements for enemies
-        elif self.rect.y+72 >= self.game.screen_height:
-            self.remove()
         else:
             # Delete enemy
             self.remove()
             # Inflict dmf to player
             self.game.player.damage(1)
+        if self.rect.y-60 >= self.game.screen_height:
+            self.remove()
 
 
 
@@ -77,7 +77,7 @@ class Enemies(pygame.sprite.Sprite):
 
         if self.rect.y >= 0 and tick > self.tick + random.randrange(800, 4000, 800):
             # Create projectiles instance
-            self.all_projectiles.add(Projectile(self, self.game.player, 'laser_beam_2'))
+            self.all_projectiles.add(Projectile(self, self.game.player, self.game.images['enemies_projectiles']))
             self.tick = tick
         else:
             pass

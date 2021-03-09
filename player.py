@@ -45,11 +45,11 @@ class Player(pygame.sprite.Sprite):
         # Check for double fire
         if self.double_shoot:
             # Create projectiles instance
-            self.all_projectiles.add(Projectile(self, self,  'laser_beam', -4))
-            self.all_projectiles.add(Projectile(self, self, 'laser_beam', 4))
+            self.all_projectiles.add(Projectile(self, self,  self.game.images['player_projectiles'], -4))
+            self.all_projectiles.add(Projectile(self, self, self.game.images['player_projectiles'], 4))
         else:
             # Create projectiles instance
-            self.all_projectiles.add(Projectile(self, self, 'laser_beam'))
+            self.all_projectiles.add(Projectile(self, self, self.game.images['player_projectiles']))
 
     def damage(self, amount):
         """ Reduce the health by the amount given. Reduce by one the number of lives if health reach zero.

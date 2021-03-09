@@ -73,9 +73,10 @@ while running:
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # Check collision with play_button
-            if play_button_rect.collidepoint(event.pos):
-                # Launch game
-                game.start()
+            if not game.is_playing:
+                if play_button_rect.collidepoint(event.pos):
+                    # Launch game
+                    game.start()
 
     # Fix clock speed
     clock.tick(FPS)
